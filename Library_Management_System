@@ -1,0 +1,96 @@
+import os
+while(1):
+    print("====================================")
+    print("STUDENT LIBRARY")
+    print("====================================")
+    print("1.Create student record")
+    print("2.Display all students record")
+    print("3.Display specific student record")
+    print("4.Modify student record")
+    print("5.Delete student record")
+    print("6.Exit")
+    print("====================================")
+    ch=int(input("Choose from above list: "))
+    if ch==6:
+        print("Thank you! Have a Nice Day.")
+        break
+    if ch==1:
+        f=open("student1.txt","a")
+        ans='y'
+        while(ans=='y'):
+            rn=input("Enter student roll no: ")
+            name=input("Student Name: ")
+            br=input("Student Branch: ")
+            bc=input("Batch year: ")
+            rec=rn+"\t"+name+"\t"+br+"\t"+bc+"\n"
+            f.write(rec)
+            ans=input("Do you wish to add another record ?")
+        f.close()
+    if(ch==2):
+        f=open("student1.txt","r")
+        for i in f:
+            print(i)
+        input()
+        f.close()
+    if(ch==3):
+        f=open("student1.txt","r")
+        ans=0
+        rn=input("Enter roll number you want to search")
+        for i in f:
+            rec=i.split()
+            if(rec.count(rn)==1):
+                print(i)
+                input()
+                ans=1
+                break
+        if(ans==0):
+            print("Sorry, no such record found")
+            input()
+        f.close()
+    if(ch==4):
+        f=open("student1.txt","r")
+        f1=open("temp.txt","w")
+        ans=0
+        rn=input("Enter roll number to modify the record")
+        for i in f:
+            rec=i.split()
+            if(rec.count(rn)==1):
+                print(i)
+                rn=input("Enter new roll number")
+                name=input("Enter new name")
+                add=input("Enter new address")
+                rec1=rn+"\t"+name+"\t"+add+"\n"
+                f1.write(rec1)
+                ans=1
+            else:
+                f1.write(i)
+        f.close()
+        f1.close()
+        os.remove("student1.txt")
+        os.rename("temp.txt","student1.txt")
+        if(ans==0):
+            print("Not found")
+            input()
+    if(ch==5):
+        f=open("student1.txt","r")
+        f1=open("temp.txt","w")
+        ans=0
+        rn=input("Enter roll number to delete the record")
+        for i in f:
+            rec=i.split()
+            if(rec.count(rn)==1):
+                print(i)
+                print("This record will be deleted")
+                input()
+                ans=1
+                continue
+            else:
+                f1.write(i)
+        f.close()
+        f1.close()
+        os.remove("student1.txt")
+        os.rename("temp.txt","student1.txt")
+        if(ans==0):
+            print("Sorry no such record is present")
+            input()
+
